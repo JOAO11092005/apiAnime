@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB0vM275qAD4e2gDtOf5-u2WwkVilDNWaA",
-  authDomain: "maxplayseries-46f30.firebaseapp.com",
-  projectId: "maxplayseries-46f30",
-  storageBucket: "maxplayseries-46f30.firebasestorage.app",
-  messagingSenderId: "328629723458",
-  appId: "1:328629723458:web:c01857b4f3f73f8f3768db",
-  measurementId: "G-SYFXZTK5CT"
+  apiKey: "AIzaSyD32csbdSueydVmz0HAKNTFtvYXpHe4iD4",
+  authDomain: "animemaxplay-61c5f.firebaseapp.com",
+  projectId: "animemaxplay-61c5f",
+  storageBucket: "animemaxplay-61c5f.firebasestorage.app",
+  messagingSenderId: "93196191758",
+  appId: "1:93196191758:web:a503199cdef72e2f6c545f",
+  measurementId: "G-BVS4NQS75P"
 };
 
 const app = initializeApp(firebaseConfig);
