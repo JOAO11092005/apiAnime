@@ -1,0 +1,389 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap');
+
+:root {
+  /* CORES TEMA ANIME (LARANJA E BRANCO) */
+  --brand-color: #FF6600;
+  /* LARANJA VIBRANTE */
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  /* Cinza claro */
+  --bg-overlay: rgba(0, 0, 0, 0.95);
+  --bg-controls: rgba(0, 0, 0, 0.7);
+  --bg-popup: rgba(255, 255, 255, 0.95);
+  /* Fundo claro para popups */
+  --text-dark: #1e1e1e;
+  /* Texto escuro para popups claros */
+  --font-sans: 'Inter', sans-serif;
+  --transition-fast: 200ms ease;
+  --transition-medium: 300ms ease;
+}
+
+/* --- Estrutura Base --- */
+.player-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--bg-overlay);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5000;
+  animation: fadeIn 0.3s ease;
+}
+
+.player-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-shadow: none;
+  background-color: #000;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+/* Estilo para quando não estiver em tela cheia (Modal) */
+.player-content:not(:-webkit-full-screen):not(:-moz-full-screen):not(:-ms-fullscreen) {
+  width: 95%;
+  max-width: 1600px;
+  max-height: 90vh;
+  border-radius: 10px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+
+.player-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  font-family: var(--font-sans);
+  overflow: hidden;
+}
+
+.player-wrapper.hide-cursor {
+  cursor: none;
+}
+
+.player-wrapper video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* --- Overlays (Controles, Loader) --- */
+.player-loader {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--brand-color);
+  /* Loader Laranja */
+  z-index: 20;
+}
+
+.player-loader svg {
+  animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+
+.player-back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: var(--bg-controls);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  /* Botão um pouco maior */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 30;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-medium), visibility var(--transition-medium);
+}
+
+.player-back-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.player-back-button.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+.player-bottom-controls-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 15px 25px;
+  /* Mais padding */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-medium), visibility var(--transition-medium), transform var(--transition-medium);
+  transform: translateY(100%);
+}
+
+.player-bottom-controls-container.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+
+/* --- Barra de Progresso --- */
+.progress-bar__wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 12px;
+  height: 6px;
+  /* Altura visual da barra */
+  display: flex;
+  align-items: center;
+}
+
+.progress-bar {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: height var(--transition-fast);
+}
+
+.progress-bar:hover {
+  height: 8px;
+  /* Fica maior no hover */
+}
+
+.progress-bar::-webkit-slider-runnable-track {
+  height: 100%;
+  border-radius: 3px;
+  /* Cor da trilha: Laranja no preenchimento */
+  background: linear-gradient(to right, var(--brand-color) var(--progress-percent), rgba(255, 255, 255, 0.25) var(--progress-percent));
+}
+
+.progress-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--text-primary);
+  border-radius: 50%;
+  margin-top: -3px;
+  border: 2px solid var(--brand-color);
+  /* Borda Laranja no thumb */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.progress-bar:hover::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+  /* Thumb cresce no hover */
+  margin-top: -5px;
+}
+
+
+.time-info {
+  position: absolute;
+  bottom: 100%;
+  /* Acima da barra */
+  color: var(--text-primary);
+  font-size: 13px;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 3px 8px;
+  border-radius: 4px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-fast), visibility var(--transition-fast);
+  white-space: nowrap;
+  pointer-events: none;
+  /* Posiciona dinamicamente */
+  left: calc(var(--progress-percent) - 15px);
+  transform: translateX(-50%);
+}
+
+.progress-bar__wrapper:hover .time-info {
+  opacity: 1;
+  visibility: visible;
+}
+
+.current-time {
+  font-weight: 700;
+  color: var(--brand-color);
+}
+
+.duration-time {
+  margin-left: 5px;
+  color: var(--text-secondary);
+}
+
+
+/* --- Controles --- */
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.controls__left,
+.controls__right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.control-button {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  padding: 8px;
+  cursor: pointer;
+  line-height: 0;
+  opacity: 0.9;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.control-button:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* --- Volume Control --- */
+.volume__container {
+  position: relative;
+}
+
+.volume__popup {
+  position: absolute;
+  bottom: calc(100% + 15px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-popup);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-medium);
+}
+
+.volume__container:hover .volume__popup {
+  opacity: 1;
+  visibility: visible;
+}
+
+.volume__slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  width: 80px;
+  writing-mode: bt-lr;
+}
+
+.volume__slider::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(to top, var(--brand-color) var(--volume-percent), rgba(0, 0, 0, 0.2) var(--volume-percent));
+}
+
+.volume__slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--brand-color);
+  /* Thumb Laranja */
+  border-radius: 50%;
+  border: none;
+}
+
+/* --- Menu de Configurações --- */
+.settings__container {
+  position: relative;
+}
+
+.settings__menu {
+  position: absolute;
+  bottom: calc(100% + 15px);
+  right: 0;
+  background: var(--bg-popup);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 5px;
+  width: 180px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.settings__menu h4 {
+  margin: 4px 8px 8px;
+  color: var(--text-dark);
+  /* Título escuro no popup claro */
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.settings__menu button {
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--text-dark);
+  /* Texto escuro */
+  padding: 10px 8px;
+  text-align: left;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.settings__menu button:hover {
+  background-color: #f0f0f0;
+}
+
+.settings__menu button.active {
+  color: var(--brand-color);
+  font-weight: 800;
+  /* Laranja ativo */
+}
+
+.episode-info {
+  color: var(--text-primary);
+  /* Info do episódio em branco */
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 250px;
+  margin-left: auto;
+  /* Empurra para a direita no controls__right */
+}

@@ -1,0 +1,954 @@
+/* ==========================================================================
+   ARQUIVO: src/App.css - TEMA ANIME (LARANJA E BRANCO) - COMPLETO
+   ========================================================================== */
+
+/* --- Variáveis Globais e Reset --- */
+:root {
+  /* CORES DO TEMA ANIME (LARANJA E BRANCO) */
+  --bg-light: #f5f5f5;
+  /* Fundo principal claro */
+  --bg-darkest: #1e1e1e;
+  /* Fundo escuro para contraste (Rodapé, Código) */
+  --bg-medium: #ffffff;
+  /* Fundo de cards e modais (Branco Puro) */
+  --border-color: #e0e0e0;
+  /* Linhas finas, bordas de cards */
+  --text-primary: #1e1e1e;
+  /* Texto principal (Preto) */
+  --text-secondary: #555555;
+  /* Texto secundário (Cinza escuro) */
+  --accent-primary: #ff6600;
+  /* LARANJA VIBRANTE (Destaque, botões primários) */
+  --accent-hover: #ff8833;
+  /* Laranja mais claro para hover */
+  --font-sans: 'Inter', 'Roboto', 'Ubuntu', sans-serif;
+  --radius: 8px;
+  /* Raio padrão */
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--bg-light);
+  color: var(--text-primary);
+  font-size: 16px;
+}
+
+/* --- Layout Principal --- */
+.container {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.5rem 2rem;
+}
+
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
+}
+
+/* --- Cabeçalho e Rodapé --- */
+.app-header {
+  background-color: var(--bg-medium);
+  border-bottom: 3px solid var(--accent-primary);
+  /* Borda laranja grossa */
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-md);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--accent-primary);
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background-color: var(--bg-light);
+  color: var(--text-primary);
+  text-decoration: none;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+  font-weight: 700;
+}
+
+.nav-link:hover {
+  background-color: var(--accent-primary);
+  color: white;
+  border-color: var(--accent-primary);
+  box-shadow: 0 4px 8px rgba(255, 102, 0, 0.3);
+}
+
+.app-footer {
+  background-color: var(--bg-darkest);
+  margin-top: 4rem;
+  padding: 1.5rem 0;
+  text-align: center;
+  color: #cccccc;
+  font-size: 0.875rem;
+  border-top: 1px solid var(--border-color);
+}
+
+/* --- Estilos Gerais de Página (HomePage, AddPage) --- */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.page-title .page-icon {
+  color: var(--accent-primary);
+}
+
+.page-title-separator {
+  /* Linha separadora logo abaixo do título */
+  border-bottom: 2px solid var(--accent-primary);
+  margin: 0 0 2rem 0;
+  height: 0;
+}
+
+.loading-message,
+.error-message,
+.info-message {
+  text-align: center;
+  font-size: 1.25rem;
+  margin-top: 3rem;
+  padding: 1rem;
+  border-radius: var(--radius);
+}
+
+.error-message {
+  color: #d12424;
+  background-color: #ffe0e0;
+  border: 1px solid #d12424;
+}
+
+.info-message {
+  background-color: var(--bg-medium);
+  border: 1px solid var(--border-color);
+}
+
+/* --- Grade de Animes (HomePage) --- */
+.series-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem;
+}
+
+.series-card {
+  background-color: var(--bg-medium);
+  border-radius: var(--radius);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  border: 2px solid var(--border-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  display: block;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+.series-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent-primary);
+}
+
+.series-card-image-wrapper {
+  position: relative;
+  aspect-ratio: 2 / 3;
+}
+
+.series-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.series-card-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  /* Gradiente para garantir legibilidade do título */
+  background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.series-card-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* --- Estilos para o Botão de Deletar e Ações no Card --- */
+.card-buttons-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  padding: 0;
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.series-card:hover .card-buttons-overlay {
+  opacity: 1;
+}
+
+.edit-button,
+.delete-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.edit-button:hover {
+  transform: scale(1.1);
+  background-color: var(--accent-primary);
+  color: white;
+  border-color: var(--accent-primary);
+}
+
+.delete-button {
+  background-color: rgba(255, 100, 100, 0.9);
+  color: white;
+}
+
+.delete-button:hover {
+  transform: scale(1.1);
+  background-color: #d12424;
+  border-color: #d12424;
+}
+
+/* --- Estilos de Detalhe do Anime (AnimeDetailPage) --- */
+
+.series-detail-page {
+  background-color: var(--bg-light);
+}
+
+.series-detail-header {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  align-items: flex-end;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.backdrop-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  filter: brightness(0.7);
+}
+
+.backdrop-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Garante que o gradiente chegue até o fundo claro da página */
+  background: linear-gradient(to top, var(--bg-light) 15%, rgba(0, 0, 0, 0.6) 60%, transparent 100%);
+  z-index: 2;
+}
+
+.header-info {
+  position: relative;
+  z-index: 3;
+  padding-top: 5rem;
+  padding-bottom: 3rem;
+  width: 100%;
+}
+
+.header-info h1 {
+  font-size: 4rem;
+  font-weight: 900;
+  color: white;
+  margin: 0;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-info h1 .page-icon {
+  color: var(--accent-primary);
+}
+
+.header-info p {
+  font-size: 1.2rem;
+  color: #ffdcb3;
+  /* Laranja claro para texto secundário no header */
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+.header-tags {
+  margin-bottom: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.genre-tag,
+.info-tag {
+  background-color: rgba(255, 102, 0, 0.9);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.watch-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  background-color: var(--accent-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 4px 15px rgba(255, 102, 0, 0.4);
+}
+
+.watch-button:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+.watch-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* --- Sinopse e Episódios (Estilo Card Branco) --- */
+
+.series-overview {
+  margin-top: -50px;
+  position: relative;
+  z-index: 5;
+  background-color: var(--bg-medium);
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+}
+
+.series-overview h2,
+.episodes-section h2 {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--accent-primary);
+  margin-bottom: 1rem;
+  border-bottom: 3px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+.series-overview p {
+  color: var(--text-secondary);
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+.episodes-section {
+  margin-top: 3rem;
+  padding: 0 0 4rem;
+}
+
+.season-selector-wrapper {
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  border: 2px solid var(--accent-primary);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background-color: var(--bg-medium);
+}
+
+.season-selector {
+  background-color: transparent;
+  border: none;
+  padding: 0.75rem 1rem;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.episodes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.episode-button {
+  background-color: var(--bg-medium);
+  border: 1px solid var(--border-color);
+  border-left: 5px solid transparent;
+  border-radius: 8px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  align-items: center;
+  transition: all 0.2s ease;
+  text-align: left;
+  display: flex;
+  gap: 1rem;
+}
+
+.episode-button:hover {
+  background-color: #fffaf7;
+  border-left: 5px solid var(--accent-primary);
+  transform: translateX(3px);
+  box-shadow: 0 6px 15px rgba(255, 102, 0, 0.15);
+}
+
+.episode-icon {
+  color: var(--accent-primary);
+  flex-shrink: 0;
+}
+
+.episode-number {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+.episode-action {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--accent-primary);
+  font-weight: 700;
+  margin-top: 0.25rem;
+}
+
+.episode-button:disabled .episode-action {
+  color: var(--text-secondary);
+}
+
+/* --- Estilos para Modal e Formulários --- */
+.search-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  max-width: 700px;
+}
+
+.form-input,
+.search-input {
+  flex-grow: 1;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-medium);
+  color: var(--text-primary);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input:focus,
+.search-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.3);
+}
+
+.button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--radius);
+  background-color: var(--accent-primary);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.button:hover {
+  background-color: var(--accent-hover);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button-secondary {
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background-color: var(--bg-light);
+  color: var(--text-primary);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.button-secondary:hover {
+  background-color: #f0f0f0;
+  border-color: var(--accent-primary);
+}
+
+.search-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.result-item {
+  background-color: var(--bg-medium);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid var(--border-color);
+  transition: border-color 0.2s ease;
+}
+
+.result-item:hover {
+  border-color: var(--accent-primary);
+}
+
+.result-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.result-item h3 {
+  margin: 0.75rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.add-form-container {
+  background-color: var(--bg-medium);
+  padding: 2rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  max-width: 800px;
+  box-shadow: var(--shadow-md);
+}
+
+.selected-series-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.selected-series-header img {
+  width: 100px;
+  border-radius: var(--radius);
+  border: 2px solid var(--border-color);
+}
+
+.selected-series-header h2 {
+  margin: 0;
+  font-size: 1.75rem;
+  color: var(--accent-primary);
+}
+
+.link-type-selector {
+  display: flex;
+  gap: 1.5rem;
+  background-color: #f0f0f0;
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 1.5rem;
+}
+
+.link-type-selector label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-primary);
+}
+
+.form-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.form-section h3 {
+  margin-top: 0;
+  color: var(--accent-primary);
+}
+
+.form-section p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+.form-section code {
+  background-color: var(--bg-darkest);
+  color: #bada55;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+.padding-options {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.padding-options label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.padding-options select {
+  background-color: var(--bg-medium);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 0.5rem;
+  color: var(--text-primary);
+}
+
+.season-input-group {
+  margin-bottom: 1.5rem;
+}
+
+.season-input-group h4 {
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  color: var(--accent-primary);
+}
+
+.individual-link-input {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.individual-link-input label {
+  color: var(--text-secondary);
+}
+
+.individual-link-input input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-medium);
+  color: var(--text-primary);
+}
+
+.form-actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+/* --- Estilos para o Modal de Confirmação --- */
+.confirm-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease;
+}
+
+.confirm-modal {
+  background-color: var(--bg-medium);
+  padding: 2rem;
+  border-radius: var(--radius);
+  border: 2px solid var(--accent-primary);
+  max-width: 500px;
+  text-align: center;
+  animation: slideIn 0.3s ease;
+  box-shadow: var(--shadow-lg);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.confirm-modal-icon {
+  color: #d12424;
+  margin-bottom: 1rem;
+}
+
+.confirm-modal h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+.confirm-modal p {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.confirm-modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.button-danger {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--radius);
+  background-color: #d12424;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.button-danger:hover {
+  background-color: #ff3333;
+}
+
+
+/* --- Estilos Específicos do Modal da API --- */
+
+.api-modal-content {
+  /* Ajuste de largura se necessário, mas 500px é geralmente bom */
+  max-width: 600px;
+  text-align: left;
+  /* Alinha o texto à esquerda dentro do modal */
+}
+
+.api-modal-content .confirm-modal-icon {
+  color: var(--accent-primary);
+  /* Ícone de API em Laranja */
+  margin: 0 auto 1rem;
+  display: block;
+}
+
+.api-modal-content h2 {
+  text-align: center;
+  color: var(--accent-primary);
+}
+
+.api-modal-content p {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.api-modal-content .api-endpoints {
+  background-color: var(--bg-light);
+  border-radius: 8px;
+  padding: 15px;
+  margin: 20px 0;
+  text-align: left;
+  width: 100%;
+  border: 1px solid var(--border-color);
+}
+
+.api-modal-content .api-endpoint {
+  margin-bottom: 15px;
+}
+
+.api-modal-content .api-endpoint strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--text-primary);
+  /* Títulos do endpoint em Preto */
+  font-weight: 700;
+}
+
+.api-modal-content .api-endpoint code {
+  background-color: var(--bg-darkest);
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: #bada55;
+  /* Verde Neon para contraste */
+  word-break: break-all;
+  display: block;
+  font-size: 0.9rem;
+}
+
+
+/* --- Player de Vídeo Melhorado (Estilos Básicos) --- */
+.video-player-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease;
+}
+
+.video-player-content {
+  position: relative;
+  width: 90%;
+  max-width: 1200px;
+  aspect-ratio: 16 / 9;
+  background-color: var(--bg-darkest);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-player-wrapper {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* --- Estilos para Responsividade (Mobile) --- */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem 1rem;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .series-detail-header {
+    height: 50vh;
+  }
+
+  .header-info h1 {
+    font-size: 2.5rem;
+  }
+
+  .header-info p {
+    font-size: 1rem;
+  }
+
+  .watch-button {
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .series-overview {
+    padding: 1.5rem;
+  }
+
+  .series-overview h2,
+  .episodes-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .episodes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .search-form {
+    flex-direction: column;
+  }
+
+  .individual-link-input {
+    grid-template-columns: 80px 1fr;
+  }
+
+  .confirm-modal {
+    max-width: 90%;
+    padding: 1.5rem;
+  }
+}
