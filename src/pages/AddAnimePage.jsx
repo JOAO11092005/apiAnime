@@ -17,6 +17,8 @@ const AddAnimePage = () => {
     const [linkTemplate, setLinkTemplate] = useState('');
     const [sPadding, setSPadding] = useState(2);
     const [ePadding, setEPadding] = useState(2);
+    // NOVO ESTADO: Controla se a contagem do episódio é sequencial
+    const [isSequential, setIsSequential] = useState(false); 
     const [individualLinks, setIndividualLinks] = useState({});
     const [tmdbDetails, setTmdbDetails] = useState(null); 
 
@@ -74,13 +76,24 @@ const AddAnimePage = () => {
                 setIsLoading(false);
                 return;
             }
+            // NOVA LÓGICA DE CONTADOR SEQUENCIAL
+            let episodeCounter = 0;
+            // Filtra as temporadas válidas e as percorre
             tmdbDetails.seasons
                 .filter(s => s.season_number > 0 && s.episode_count > 0)
                 .forEach(season => {
                     generatedLinks[season.season_number] = {};
                     for (let epNum = 1; epNum <= season.episode_count; epNum++) {
+                        episodeCounter++;
+                        
+                        // O número do episódio usado no link depende da configuração sequencial
+                        const epToFormat = isSequential ? episodeCounter : epNum;
+
                         const formattedSeason = String(season.season_number).padStart(sPadding, '0');
-                        const formattedEpisode = String(epNum).padStart(ePadding, '0');
+                        // Usa o número do episódio correto (sequencial ou por temporada)
+                        const formattedEpisode = String(epToFormat).padStart(ePadding, '0');
+                        
+                        // O template de URL original já usa {e}, então a substituição funciona
                         const finalUrl = linkTemplate.replace('{s}', formattedSeason).replace('{e}', formattedEpisode);
                         generatedLinks[season.season_number][epNum] = finalUrl;
                     }
@@ -155,12 +168,26 @@ const AddAnimePage = () => {
                         {linkType === 'pattern' && (
                             <div className="form-section">
                                 <h3><LinkIcon size={20} /> Configuração do Padrão de Link</h3>
-                                {/* CORREÇÃO APLICADA AQUI */}
                                 <p>Use <strong>{'{s}'}</strong> para **Temporada** e <strong>{'{e}'}</strong> para **Episódio** no seu template de URL.</p>
-                                {/* FIM DA CORREÇÃO */}
                                 <input type="text" value={linkTemplate} onChange={(e) => setLinkTemplate(e.target.value)} placeholder="Ex: https://.../Anime.S{s}E{e}.mkv" className="form-input" required />
+                                
+                                {/* NOVA OPÇÃO DE CONTROLE DE SEQUENCIALIDADE */}
+                                <div className="checkbox-option">
+                                    <label>
+                                        <input 
+                                            type="checkbox" 
+                                            checked={isSequential} 
+                                            onChange={(e) => setIsSequential(e.target.checked)} 
+                                        /> 
+                                        **Contagem Sequencial de Episódios** (O <strong>{'{e}'}</strong> continuará contando entre temporadas. Ex: T1E39, T2E40)
+                                    </label>
+                                </div>
+                                {/* FIM DA NOVA OPÇÃO */}
+
                                 <div className="padding-options">
+                                    {/* O padding de temporada continua sendo usado para {s} */}
                                     <label>Formato Temporada (S):<select value={sPadding} onChange={(e) => setSPadding(Number(e.target.value))}><option value={1}>1</option><option value={2}>01</option><option value={3}>001</option></select></label>
+                                    {/* O padding de episódio agora é usado para {e}, seja ele sequencial ou por temporada */}
                                     <label>Formato Episódio (E):<select value={ePadding} onChange={(e) => setEPadding(Number(e.target.value))}><option value={1}>1</option><option value={2}>01</option><option value={3}>001</option></select></label>
                                 </div>
                             </div>
